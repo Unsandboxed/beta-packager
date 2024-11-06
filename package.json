@@ -1,8 +1,9 @@
 {
-  "name": "@turbowarp/packager",
+  "name": "@unsandboxed/packager",
   "version": "3.0.0",
   "description": "Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.",
   "main": "dist/packager.js",
+  "private": true,
   "scripts": {
     "start": "webpack serve",
     "clean": "rimraf dist",
@@ -18,17 +19,17 @@
     "postpublish": "node src/build/nodejs/update-readme.js restore"
   },
   "author": "GarboMuffin",
-  "homepage": "https://github.com/TurboWarp/packager#readme",
+  "homepage": "https://github.com/Unsandboxed/packager#readme",
   "keywords": [
     "scratch",
     "packager"
   ],
   "bugs": {
-    "url": "https://github.com/TurboWarp/packager/issues"
+    "url": "https://github.com/Unsandboxed/packager/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TurboWarp/packager.git"
+    "url": "https://github.com/Unsandboxed/packager.git"
   },
   "funding": "https://github.com/sponsors/GarboMuffin",
   "license": "MPL-2.0",
@@ -56,8 +57,8 @@
     "jest": "^27.4.5",
     "rimraf": "^2.7.1",
     "scratch-audio": "github:TurboWarp/scratch-audio#develop",
-    "scratch-render": "github:TurboWarp/scratch-render#develop",
-    "scratch-vm": "github:TurboWarp/scratch-vm#develop",
+    "scratch-render": "github:Unsandboxed/scratch-render#develop",
+    "scratch-vm": "github:Unsandboxed/scratch-vm#develop",
     "style-loader": "^2.0.0",
     "svelte": "^3.44.3",
     "svelte-loader": "^3.1.2",
