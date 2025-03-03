@@ -36,7 +36,8 @@ export default function ({ scaffolding }) {
 
       // Immediately emit project stop
       // Scratch will do this automatically, but there may be a slight delay.
-      vm.runtime.emit("PROJECT_RUN_STOP");
+      vm.runtime.emit('PROJECT_RUN_STOP');
+      vm.runtime.emit('RUNTIME_PAUSED');
     } else {
       audioContextStateChange = audioContextStateChange.then(() => {
         return vm.runtime.audioEngine.audioContext.resume();
@@ -53,6 +54,9 @@ export default function ({ scaffolding }) {
             stackFrame.executionContext.timer.startTime += dt;
           }
           // Compiler state is stored differently
+          if (thread.compatibilityStackFrame && thread.compatibilityStackFrame.timer) {
+            thread.compatibilityStackFrame.timer.startTime += now - pauseState.pauseTime;
+          }
           if (thread.timer) {
             const dt = now - pauseState.pauseTime;
             thread.timer.startTime += dt;
@@ -61,9 +65,9 @@ export default function ({ scaffolding }) {
         }
       }
       pausedThreadState = new WeakMap();
-    }
 
-    vm.emit('P4_PAUSE', paused);
+      vm.runtime.emit('RUNTIME_UNPAUSED');
+    }
   };
 
   const ensurePausedThreadIsStillPaused = (thread) => {

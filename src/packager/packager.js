@@ -147,11 +147,17 @@ const CFBundleShortVersionString = 'CFBundleShortVersionString';
 // https://developer.apple.com/documentation/bundleresources/information_property_list/lsapplicationcategorytype
 const LSApplicationCategoryType = 'LSApplicationCategoryType';
 
-const generateMacReadme = (options) => `When you try to double click on the app to run it, you will probably see this warning:
-"${options.app.packageName} cannot be opened because the developer cannot be verified."
-This is normal. Press cancel.
+const generateMacReadme = (options) => `Due to macOS restrictions, running this app requires a few manual steps.
 
-To run the app:
+To run the app on macOS 15 and later:
+1) Double click on the app file (${options.app.packageName} in the same folder as this document), then press "Done" when the warning appears
+2) Open macOS System Settings
+3) Go to the "Privacy & Security" section
+4) Scroll to the bottom
+5) By "${options.app.packageName} was blocked to protect your Mac", press "Open Anyway"
+6) In the prompt that appears, press "Open Anyway"
+
+To run the app on macOS 14 and earlier:
 1) Control+click on the app file (${options.app.packageName} in the same folder as this document) and select "Open".
 2) If a warning appears, select "Open" if it's an option.
 3) If a warning appears but "Open" isn't an option, press "Cancel" and repeat from step 1.
@@ -1079,7 +1085,7 @@ cd "$(dirname "$0")"
         };
         xhr.onerror = () => {
           if (location.protocol === 'file:') {
-            reject(new Error('Zip environment must be used from a website, not from a file URL.'));
+            reject(new Error('Zip environment must be used on a website, not on a local file. To fix this error, use the "Plain HTML" environment instead.'));
           } else {
             reject(new Error('Request to load project data failed.'));
           }
@@ -1495,15 +1501,21 @@ cd "$(dirname "$0")"
       pauseButton.addEventListener('click', () => {
         vm.setPaused(!isPaused);
       });
-      const updatePause = (_isPaused) => {
-        isPaused = _isPaused;
+      const updatePause = () => {
         if (isPaused) {
           pauseButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="16" height="16" viewBox="0 0 4.2333332 4.2333335" xmlns="http://www.w3.org/2000/svg"><path d="m3.95163484 2.02835365-1.66643921.9621191-1.66643913.96211911V.10411543l1.66643922.9621191z" fill="#ffae00"/></svg>');
         } else {
           pauseButton.src = 'data:image/svg+xml,' + encodeURIComponent('<svg width="16" height="16" viewBox="0 0 4.2333332 4.2333335" xmlns="http://www.w3.org/2000/svg"><g fill="#ffae00"><path d="M.389.19239126h1.2631972v3.8485508H.389zM2.5810001.19239126h1.2631972v3.8485508H2.5810001z"/></g></svg>');
         }
-      }
-      vm.on('P4_PAUSE', updatePause);
+      };
+      vm.runtime.on('RUNTIME_PAUSED', () => {
+        isPaused = true;
+        updatePause();
+      });
+      vm.runtime.on('RUNTIME_UNPAUSED', () => {
+        isPaused = false;
+        updatePause();
+      });
       updatePause();
       scaffolding.addControlButton({
         element: pauseButton,
