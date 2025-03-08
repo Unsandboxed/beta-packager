@@ -24,6 +24,7 @@
   "var-minute": "minute",
   "var-second": "second",
   "var-millisecond": "millisecond",
+  "var-timestamp": "timestamp",
   "list-empty": "(empty)",
   "list-length": "length {n}",
   "list-import": "import",
