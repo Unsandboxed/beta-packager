@@ -82,6 +82,10 @@ class Monitor {
         label = this.parent.getMessage('var-minute');
       } else if (menu === 'second') {
         label = this.parent.getMessage('var-second');
+      } else if (menu === 'millisecond') {
+        label = this.parent.getMessage('var-millisecond');
+      } else if (menu === 'timestamp') {
+        label = this.parent.getMessage('var-timestamp');
       }
     } else {
       const vmLabel = this.parent.vm.runtime.getLabelForOpcode(this.opcode);
