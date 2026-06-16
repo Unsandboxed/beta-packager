@@ -55,7 +55,7 @@
     "futil": "^1.76.4",
     "html-webpack-plugin": "^4.5.2",
     "immutable": "^5.1.4",
-    "jest": "^27.4.5",
+    "jest": "^30.4.2",
     "ramda": "^0.32.0",
     "rimraf": "^2.7.1",
     "scratch-audio": "github:TurboWarp/scratch-audio#develop",
