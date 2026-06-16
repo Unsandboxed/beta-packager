@@ -1,8 +1,13 @@
-# TurboWarp Packager
+# Unsandboxed Packager
 
-https://packager.turbowarp.org/
+https://unsandboxed.github.io/beta-packager/
 
-Converts Scratch projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.
+Converts Scratch and Unsandboxed projects into HTML files, zip archives, or executable programs for Windows, macOS, and Linux.
+
+## Disclaimer
+
+Unsandboxed is in alpha. It breaks if you so much as sneeze wrong, and this is no exception.
+Use with caution.
 
 ## Development
 
